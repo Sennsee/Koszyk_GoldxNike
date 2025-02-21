@@ -4,15 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Koszyk - Sklep GoldxNike</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
       margin: 0;
       padding: 0;
-      background: #f5f5f5 url('2 logo') no-repeat center center fixed;
-      background-size: cover;
     }
     header {
       background-color: #333;
@@ -27,23 +25,12 @@
     .logo {
       position: absolute;
       left: 20px;
-      height: 100%;
       max-width: 130px;
-      object-fit: contain;
+      height: auto;
     }
     h1 {
       margin: 0;
       font-size: 32px;
-      display: flex;
-      align-items: center;
-    }
-    .cart-icon {
-      width: 30px;
-      height: auto;
-      margin-right: 10px;
-    }
-    .fa-shopping-cart {
-      margin-right: 10px;
     }
     .container {
       max-width: 800px;
@@ -52,15 +39,12 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .big-logo {
       text-align: center;
-      margin-bottom: 20px;
     }
     .big-logo img {
       width: 100%;
       max-width: 300px;
-      height: auto;
+      margin-bottom: 20px;
     }
     table {
       width: 100%;
@@ -75,15 +59,6 @@
     table th {
       background-color: #f2f2f2;
     }
-    .total {
-      text-align: right;
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    .actions {
-      text-align: right;
-    }
     .actions button {
       background-color: gold;
       border: none;
@@ -91,37 +66,22 @@
       cursor: pointer;
       font-size: 16px;
       border-radius: 5px;
-      margin-left: 10px;
+      margin: 10px;
     }
     .actions button:hover {
       background-color: darkgoldenrod;
-    }
-    .empty-cart {
-      text-align: center;
-      font-size: 18px;
-      color: #777;
-      padding: 30px 0;
     }
   </style>
 </head>
 <body>
   <header>
     <img src="LogoPirat.png" alt="Logo Sklepu" class="logo">
-    <h1>
-      <!-- Możesz użyć obrazu -->
-      
-      <!-- Lub FontAwesome -->
-      <i class="fas fa-shopping-cart"></i>
-      Koszyk
-    </h1>
+    <h1><i class="fas fa-shopping-cart"></i> Koszyk</h1>
   </header>
+  
   <div class="container">
     <div class="big-logo">
       <img src="2_logo-removebg-preview.png" alt="Duże Logo Sklepu">
-    </div>
-    
-    <div class="empty-cart" id="emptyCart" style="display: none;">
-      Twój koszyk jest pusty.
     </div>
     
     <table id="cartTable">
@@ -135,26 +95,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Goldy 1 Taxi</td>
-          <td>1</td>
-          <td>20 mln dolarów</td>
-          <td>20 mln dolarów</td>
-          <td><button>Usuń</button></td>
-        </tr>
-        <tr>
-          <td>Czapka Goldy</td>
-          <td>2</td>
-          <td>15 mln dolarów</td>
-          <td>30 mln dolarów</td>
-          <td><button>Usuń</button></td>
-        </tr>
+        <!-- Produkty będą tutaj dynamicznie dodawane -->
       </tbody>
     </table>
     
-    <div class="total">
-      Łącznie: 50 mln dolarów
-    </div>
+    <div class="total" id="totalPrice">Łącznie: 0 mln dolarów</div>
     
     <div class="actions">
       <button onclick="continueShopping()">Kontynuuj zakupy</button>
@@ -163,12 +108,45 @@
   </div>
 
   <script>
+    document.addEventListener("DOMContentLoaded", loadCart);
+
+    function loadCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let tableBody = document.querySelector("#cartTable tbody");
+      tableBody.innerHTML = "";
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        let row = document.createElement("tr");
+        let totalItemPrice = item.price * item.quantity;
+        total += totalItemPrice;
+        
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price} mln dolarów</td>
+          <td>${totalItemPrice} mln dolarów</td>
+          <td><button onclick="removeItem(${index})">Usuń</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+      
+      document.getElementById("totalPrice").innerText = `Łącznie: ${total} mln dolarów`;
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
     function continueShopping() {
-      window.location.href =  "https://sennsee.github.io/Gold-X-Nike/";
+      window.location.href = "https://sennsee.github.io/Gold-X-Nike/";
     }
     
     function checkout() {
-      window.location.href = 'checkout.html';
+      alert("Przechodzisz do kasy. (Implementacja w toku)");
     }
   </script>
 </body>
