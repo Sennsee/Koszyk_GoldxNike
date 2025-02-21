@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koszyk - Sklep GoldxNike</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #333;
+            color: gold;
+            padding: 15px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .actions {
+            text-align: right;
+        }
+        .actions button {
+            background-color: gold;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        .actions button:hover {
+            background-color: darkgoldenrod;
+        }
+        .empty-cart {
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Koszyk</h1>
+    </header>
+    <div class="container">
+        <!-- Jeżeli koszyk jest pusty, wyświetl komunikat -->
+        <div class="empty-cart" id="emptyCart" style="display: none;">
+            Twój koszyk jest pusty.
+        </div>
+        
+        <!-- Tabela z produktami w koszyku -->
+        <table id="cartTable">
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Ilość</th>
+                    <th>Cena</th>
+                    <th>Razem</th>
+                    <th>Usuń</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Goldy 1 Taxi</td>
+                    <td>1</td>
+                    <td>20 mln dolarów</td>
+                    <td>20 mln dolarów</td>
+                    <td><button>Usuń</button></td>
+                </tr>
+                <tr>
+                    <td>Czapka Goldy</td>
+                    <td>2</td>
+                    <td>15 mln dolarów</td>
+                    <td>30 mln dolarów</td>
+                    <td><button>Usuń</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="total">
+            Łącznie: 50 mln dolarów
+        </div>
+        
+        <div class="actions">
+            <button onclick="continueShopping()">Kontynuuj zakupy</button>
+            <button onclick="checkout()">Przejdź do kasy</button>
+        </div>
+    </div>
+
+    <script>
+        function continueShopping() {
+            // Przekierowanie do strony głównej sklepu
+            window.location.href = 'index.html';
+        }
+        
+        function checkout() {
+            // Przekierowanie do strony realizacji zamówienia
+            window.location.href = 'checkout.html';
+        }
+    </script>
+</body>
+</html>
